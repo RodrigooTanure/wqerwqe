@@ -43,6 +43,48 @@
         .clube {
             width: 90%;
         }
+
+            .upload-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        max-width: 300px;
+        margin: 20px;
+        }
+
+        .custom-file-label {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: #007BFF;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        }
+
+        .custom-file-label:hover {
+        background-color: #0056b3;
+        }
+
+        .custom-file-label i {
+        margin-right: 8px;
+        }
+
+        #fileInput {
+        display: none;
+        }
+
+        .image-preview {
+        width: 100%;
+        max-height: 200px;
+        object-fit: contain;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        display: none;
+        }
     </style>
     <div class="header">
         <div style="display: flex; justify-content: start; align-items: center;">
@@ -51,7 +93,7 @@
         <div style="display: flex; justify-content: center; align-items: center;">
             <img class="clube" src="piraque.png" alt="">
         </div>
-        <div style="display: flex; justify-content: end; align-items: center;">
+        <div id="adc-ocorrencia" style="display: flex; justify-content: end; align-items: center;">
             <img class="plus" src="plus.png" alt="">&nbsp;&nbsp;&nbsp;
         </div>
     </div>
@@ -60,11 +102,11 @@
         <h2 style="text-align: center; margin: 10px 0;">Manutenções</h2>
         <div id="div-nao-existe" style="text-align: center; font-weight: bolder; margin-top: 50px; font-size: 1.5em; color: #838383; display: none;">
             <div>
-                    <h3>
-                    Não existem ocorrências!
-                    <br/>
-                    <i class="fa fa-ban" aria-hidden="true"></i> 
-                    </h3>
+                <h3>
+                Não existem ocorrências!
+                <br/>
+                <i class="fa fa-ban" aria-hidden="true"></i> 
+                </h3>
             </div>
         </div>
         <div id="div-arvore" style="background-color: #eee; display: flex; padding: 0 10px; align-items: center; cursor: pointer; ">
@@ -88,6 +130,57 @@
             <button id="btn-cancelar" style="background-color: #f44336; border: 0; padding: 5px 10px; color: #fff; border-radius: 4px;"><b>Cancelar</b></button>
         </div>
     </div>
+
+    <div id="div-adc-nova-ocorrencia" style="padding: 10px; display: none; border: 1px solid #000; background-color: #eee; width: 100%; position: absolute; top: 10px; height: 70vh; border-radius: 3px;">
+        <div style="position: absolute; right: 5px; top: 5px;">
+            <button id="btn-fecha" style="background-color: #f44336; border: 0; padding: 5px 10px; color: #fff; border-radius: 4px; font-size: 2em;">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <h2 style="text-align: center; margin-top: 10px;"><b>Inserir nova Ocorrência!</b></h2>
+        <div style="margin-top: 10px;">
+            <div style="font-size: 1.4em;">
+                <div>
+
+                    <label for="titulo"><b>Título</b>:</label>
+                    <input style="  width: 100%;
+                padding: 10px 35px 10px 15px;
+                font-size: 16px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                transition: border-color 0.3s;
+                outline: none;" type="text" placeholder="Insira o título.." id="titulo">
+                </div>
+                <div style="margin-top: 10px;">
+                    <label for="desc"><b>Descrição</b>:</label>
+                    <textarea style="   width: 100%;
+                    height: 120px;
+                    padding: 12px 40px 12px 15px;
+                    font-size: 16px;
+                    border: 2px solid #ccc;
+                    border-radius: 5px;
+                    resize: vertical;
+                    transition: border-color 0.3s, box-shadow 0.3s;
+                    outline: none;" name="" id="desc" placeholder="insira uma descrição.."></textarea>
+                </div>
+                <div style="margin-top: 10px;">
+                    <label for="img"><b>Insira uma imagem</b>:</label>
+                    <div class="upload-wrapper">
+                        <label for="fileInput" class="custom-file-label">
+                          <i class="fa fa-upload"></i> Escolher Imagem
+                        </label>
+                        <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
+                        <img id="preview" class="image-preview" alt="Preview da imagem" />
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="width: 100%;">
+                <button id="btn-envia" style="background-color: #4CAF50; border: 0; padding: 5px 10px; color: #fff; border-radius: 4px; width: 100%;"><b>Confirmar Ocorrência</b></button>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelector("#div-arvore").addEventListener("click", function () {
@@ -107,6 +200,13 @@
                 document.querySelector("#div-escurecer").style.display = "none";
             });
 
+            document.querySelector("#adc-ocorrencia").addEventListener("click", function () { 
+                document.querySelector("#div-adc-nova-ocorrencia").style.display = "block";
+            });
+
+            document.querySelector("#btn-fecha").addEventListener("click", function () { 
+                document.querySelector("#div-adc-nova-ocorrencia").style.display = "none";
+            });
         });
     </script>
 </body>
