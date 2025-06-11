@@ -6,6 +6,8 @@
     <title>Ocorrências</title>
 </head>
 <body>
+    <!-- Font Awesome 4.7.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style>
         * {
@@ -56,7 +58,16 @@
 
     <main style="width: 100vw; padding: 0;">
         <h2 style="text-align: center; margin: 10px 0;">Manutenções</h2>
-        <div style="background-color: #eee; display: flex; padding: 0 10px; align-items: center;">
+        <div id="div-nao-existe" style="text-align: center; font-weight: bolder; margin-top: 50px; font-size: 1.5em; color: #838383; display: none;">
+            <div>
+                    <h3>
+                    Não existem ocorrências!
+                    <br/>
+                    <i class="fa fa-ban" aria-hidden="true"></i> 
+                    </h3>
+            </div>
+        </div>
+        <div id="div-arvore" style="background-color: #eee; display: flex; padding: 0 10px; align-items: center; cursor: pointer; ">
             <div style="width: 40%;">
                 <img style="width: 100%; border-radius: 5px;" src="arvore.jpg" alt="">
             </div>
@@ -68,5 +79,35 @@
         <div style="height: 10000px;"></div>
     </main>
 
+    <div id="div-escurecer" style="display: none; position: absolute; top: 0; width: 100vw; height: 100vh; background-color: #00000077;"></div>
+
+    <div id="div-concluir" style="display: none; position: absolute; top: 20%; left: 50%;width: 80%; height: 100px; border-radius: 5px; border: 1px solid #000; background-color: #eee; transform: translate(-50%, -50%); padding: 5px; text-align: center;" id="modal-remover">
+        <p>Deseja confirmar que a ocorrência <b>"Remoção da Árvore"</b> foi concluída?</p>
+        <div style="position: relative; top: 15px;">
+            <button id="btn-remove" style="background-color: #4CAF50; border: 0; padding: 5px 10px; color: #fff; border-radius: 4px;"><b>Confirmar</b></button> &nbsp;
+            <button id="btn-cancelar" style="background-color: #f44336; border: 0; padding: 5px 10px; color: #fff; border-radius: 4px;"><b>Cancelar</b></button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("#div-arvore").addEventListener("click", function () {
+                document.querySelector("#div-escurecer").style.display = "block";
+                document.querySelector("#div-concluir").style.display = "block";
+            });
+            
+            document.querySelector("#btn-cancelar").addEventListener("click", function () { 
+                document.querySelector("#div-escurecer").style.display = "none";
+                document.querySelector("#div-concluir").style.display = "none";
+            });
+
+            document.querySelector("#btn-remove").addEventListener("click", function () { 
+                document.querySelector("#div-nao-existe").style.display = "block";
+                document.querySelector("#div-arvore").style.display = "none";
+                document.querySelector("#div-concluir").style.display = "none";
+                document.querySelector("#div-escurecer").style.display = "none";
+            });
+
+        });
+    </script>
 </body>
 </html>
